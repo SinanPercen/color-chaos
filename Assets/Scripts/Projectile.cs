@@ -1,27 +1,36 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
-    public float speed = 10f;
-    public ColorType projectileColor = ColorType.None;
+public class Projectile : MonoBehaviour
+{
+    public float speed = 10f;           // Fluggeschwindigkeit
+    public float lifetime = 5f;         // Lebensdauer des Projektils
+    public ColorType projectileColor;   // Farbe (noch optional)
 
-    private void Update() {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+            rb = gameObject.AddComponent<Rigidbody>();
+
+        rb.useGravity = false;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        // Falls Projektil auf ColorField trifft
-        ColorField field = collision.gameObject.GetComponent<ColorField>();
-        if (field != null) {
-            field.ApplyColor(projectileColor);
-        } else {
-            // Neues Farbfeld erzeugen
-            GameObject newField = new GameObject("ColorField");
-            newField.transform.position = transform.position;
-            var sr = newField.AddComponent<SpriteRenderer>();
-            var cf = newField.AddComponent<ColorField>();
-            cf.ApplyColor(projectileColor);
-        }
+    // Initialisierung direkt nach Instanziierung
+    public void Initialize(Vector3 direction, ColorType color)
+    {
+        rb.linearVelocity = direction.normalized * speed;
+        projectileColor = color;
 
-        Destroy(gameObject);
+        Destroy(gameObject, lifetime); // Selbstzerstörung nach 'lifetime' Sekunden
+    }
+
+        private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall") )
+            Destroy(gameObject);
+
     }
 }
