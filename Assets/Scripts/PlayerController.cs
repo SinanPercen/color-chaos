@@ -14,6 +14,15 @@ public class PlayerController : MonoBehaviour
     public float fireOffset = 0.5f;          
     public ColorType playerColor = ColorType.Blue;
 
+    [Header("Beam Settings")]
+    public GameObject beamPrefab;
+    public float beamLength = 10f;
+    public float beamDamage = 10f;
+    public float beamDuration = 0.8f;
+    public LayerMask beamHitMask; // nur Wände/Enemies
+    public float beamSpawnOffset = 0.5f;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +53,26 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
             Shoot();
+    }
+    public void OnBeam(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        Vector3 target = GetMouseWorldPosition();
+
+        // Richtung XZ-Ebene, Y ignorieren
+        Vector3 direction = target - transform.position;
+        direction.y = 0;
+        direction.Normalize();
+
+Vector3 spawnPos = transform.position + direction * 0.5f;
+GameObject beamGO = Instantiate(beamPrefab, spawnPos, Quaternion.identity);
+Beam beam = beamGO.GetComponent<Beam>();
+if (beam != null)
+{
+    beam.Initialize(spawnPos, direction, beamLength, beamDuration, beamDamage, beamHitMask, 0.2f);
+}
+
     }
     #endregion
 

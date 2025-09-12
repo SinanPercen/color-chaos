@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 178785631}
   - component: {fileID: 178785630}
   - component: {fileID: 178785629}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 515369552}
   - component: {fileID: 515369551}
   - component: {fileID: 515369550}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -668,6 +668,10 @@ PrefabInstance:
       value: book_0001a
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: cba00f75539bc564fabb9136fccfac6c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cba00f75539bc564fabb9136fccfac6c, type: 3}
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
@@ -736,13 +740,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3227335089627743396, guid: dcb17089bdda007478659319a814fba1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6125203735093388031, guid: dcb17089bdda007478659319a814fba1, type: 3}
       propertyPath: m_Name
       value: Scissors
       objectReference: {fileID: 0}
     - target: {fileID: 6125203735093388031, guid: dcb17089bdda007478659319a814fba1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125203735093388031, guid: dcb17089bdda007478659319a814fba1, type: 3}
       propertyPath: m_TagString
       value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6360718548392062638, guid: dcb17089bdda007478659319a814fba1, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6794463941319948357, guid: dcb17089bdda007478659319a814fba1, type: 3}
       propertyPath: m_LocalScale.x
@@ -893,6 +909,10 @@ PrefabInstance:
       value: book_0001c
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 888ce82c0af2ab0499d39c93fb0f4ce4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 888ce82c0af2ab0499d39c93fb0f4ce4, type: 3}
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
@@ -972,6 +992,10 @@ PrefabInstance:
       value: Hammer
       objectReference: {fileID: 0}
     - target: {fileID: 3945092897844846529, guid: 44934995035ac1b40b03c7fcc7f2f8b8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945092897844846529, guid: 44934995035ac1b40b03c7fcc7f2f8b8, type: 3}
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
@@ -1047,7 +1071,7 @@ GameObject:
   - component: {fileID: 1400802710}
   - component: {fileID: 1400802709}
   - component: {fileID: 1400802715}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,6 +1094,13 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1114262725552308915, guid: 85e3dcdad57f3ae40a54a7dd50be8f68, type: 3}
   fireOffset: 0.5
   playerColor: 3
+  beamPrefab: {fileID: 910286872053994371, guid: 1e21e36283f647e40955f14ae3443853, type: 3}
+  beamLength: 10
+  beamDuration: 0.8
+  beamDamage: 10
+  beamHitMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!54 &1400802710
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1183,7 +1214,7 @@ Transform:
   m_GameObject: {fileID: 1400802708}
   serializedVersion: 2
   m_LocalRotation: {x: 0.008802043, y: 0.008649743, z: 0.008649744, w: 0.99988645}
-  m_LocalPosition: {x: -0.6, y: 0.5, z: 25.39}
+  m_LocalPosition: {x: 0.4, y: 0.51, z: 25.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1246,6 +1277,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dbee735e-7ad8-4a44-954a-0f80b583e74e
     m_ActionName: 'Player/Shoot[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1400802709}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnBeam
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c9fb9597-d7b0-4514-947c-78b456998ffe
+    m_ActionName: 'Player/Beam[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1384,6 +1431,10 @@ PrefabInstance:
     - target: {fileID: 5077310148688304179, guid: 41a8a7b7d9f142249899b2b968e7fe31, type: 3}
       propertyPath: m_Name
       value: Tape
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077310148688304179, guid: 41a8a7b7d9f142249899b2b968e7fe31, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5077310148688304179, guid: 41a8a7b7d9f142249899b2b968e7fe31, type: 3}
       propertyPath: m_TagString
