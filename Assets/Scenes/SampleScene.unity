@@ -147,14 +147,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163473501}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 0, z: -0.04}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 309128555}
   m_Father: {fileID: 178785632}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -0.06, y: 0.78}
@@ -1397,6 +1397,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1114262725552308915, guid: 85e3dcdad57f3ae40a54a7dd50be8f68, type: 3}
   fireOffset: 0.5
   playerColor: 3
+  projectileCooldown: 1.5
   beamPrefab: {fileID: 910286872053994371, guid: 1e21e36283f647e40955f14ae3443853, type: 3}
   beamLength: 10
   beamDamage: 10

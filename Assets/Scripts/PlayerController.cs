@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public float fireOffset = 0.5f;          
     public ColorType playerColor = ColorType.Blue;
+    public float projectileCooldown = 10f; // Cooldown in Sekunden
+    private float lastFireTime = -Mathf.Infinity;
 
     [Header("Beam Settings")]
     public GameObject beamPrefab;
@@ -103,6 +105,15 @@ public void OnBomb(InputAction.CallbackContext context)
 
     private void Shoot()
     {
+        // Cooldown prüfen
+        if (Time.time < lastFireTime + projectileCooldown)
+        {
+            float remaining = (lastFireTime + projectileCooldown) - Time.time;
+            Debug.Log($"Projectile noch im Cooldown: {remaining:F1}s");
+            return;
+        }
+
+    lastFireTime = Time.time; // Zeitpunkt speichern
         Vector3 target = GetMouseWorldPosition();
         Vector3 direction = (target - transform.position).normalized;
 
