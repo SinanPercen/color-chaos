@@ -37,7 +37,5 @@ public class Projectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall"))
             Destroy(gameObject);
-            Console.WriteLine("Projectile hit " + collision.gameObject.name);
-
     }
 }
