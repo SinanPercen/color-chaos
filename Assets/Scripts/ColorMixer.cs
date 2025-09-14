@@ -1,23 +1,16 @@
-using UnityEngine;
-
-public static class ColorMixer {
-    public static ColorType Mix(ColorType a, ColorType b) {
-        if (a == b) return a;
-
-        // Beispiele für Mischungen
+public static class ColorMixer
+{
+    public static ColorType MixColors(ColorType a, ColorType b)
+    {
+        if ((a == ColorType.Red && b == ColorType.Blue) || (a == ColorType.Blue && b == ColorType.Red))
+            return ColorType.Purple; // Beispiel
+        
         if ((a == ColorType.Red && b == ColorType.Yellow) || (a == ColorType.Yellow && b == ColorType.Red))
             return ColorType.Orange;
 
-        if ((a == ColorType.Red && b == ColorType.Blue) || (a == ColorType.Blue && b == ColorType.Red))
-            return ColorType.Purple;
-
-        if ((a == ColorType.Yellow && b == ColorType.Blue) || (a == ColorType.Blue && b == ColorType.Yellow))
+        if ((a == ColorType.Blue && b == ColorType.Yellow) || (a == ColorType.Yellow && b == ColorType.Blue))
             return ColorType.Green;
 
-        // Drei Farben gleichzeitig -> Chaos (Grau)
-        if (a != ColorType.None && b != ColorType.None)
-            return ColorType.Gray;
-
-        return ColorType.None;
+        return a; // Standard: keine Mischung
     }
 }
