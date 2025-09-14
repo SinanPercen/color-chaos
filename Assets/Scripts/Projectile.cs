@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -27,7 +28,7 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime); // Selbstzerstörung nach 'lifetime' Sekunden
     }
 
-        private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent<IDamageable>(out var dmg))
         {
@@ -36,6 +37,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall"))
             Destroy(gameObject);
+            Console.WriteLine("Projectile hit " + collision.gameObject.name);
 
     }
 }
