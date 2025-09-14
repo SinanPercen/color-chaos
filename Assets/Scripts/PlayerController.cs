@@ -22,6 +22,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask beamHitMask; // nur Wände/Enemies
     public float beamSpawnOffset = 0.5f;
 
+    [Header("Bomb")]
+    public GameObject bombPrefab;
+    public float bombRadius = 3f;
+    public float bombDuration = 2f;
+    public float bombDamage = 20f;
+
+
 
     private void Awake()
     {
@@ -74,6 +81,24 @@ if (beam != null)
 }
 
     }
+public void OnBomb(InputAction.CallbackContext context)
+{
+    if (!context.performed) return;
+
+    Vector3 target = GetMouseWorldPosition();
+    Vector3 spawnPos = target + Vector3.up * 0.1f;
+
+    GameObject bombGO = Instantiate(bombPrefab, spawnPos, Quaternion.identity);
+    Bomb bomb = bombGO.GetComponent<Bomb>();
+    if (bomb != null)
+    {
+        bomb.bombColor = playerColor;
+        bomb.radius = bombRadius;
+        bomb.duration = bombDuration;
+        bomb.damage = bombDamage;
+    }
+}
+
     #endregion
 
     private void Shoot()

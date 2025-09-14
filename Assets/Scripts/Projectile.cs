@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public ColorType projectileColor;   // Farbe (noch optional)
 
     private Rigidbody rb;
+    public float damage = 5f;
 
     private void Awake()
     {
@@ -22,14 +23,18 @@ public class Projectile : MonoBehaviour
     public void Initialize(Vector3 direction, ColorType color)
     {
         rb.linearVelocity = direction.normalized * speed;
-        projectileColor = color;
 
         Destroy(gameObject, lifetime); // Selbstzerstörung nach 'lifetime' Sekunden
     }
 
         private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall") )
+        if (collision.gameObject.TryGetComponent<IDamageable>(out var dmg))
+        {
+            dmg.TakeDamage(damage);
+        }
+
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall"))
             Destroy(gameObject);
 
     }
