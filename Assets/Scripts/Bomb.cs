@@ -12,15 +12,21 @@ public class Bomb : MonoBehaviour
     [Header("Visuals")]
     public GameObject explosionEffect; // optionales Partikel/Prefab
     public GameObject colorFieldPrefab; // das ColorField-Prefab, das gefärbt wird
+    public GameObject redPrefab;
+    public GameObject bluePrefab;
+    public GameObject yellowPrefab;
+    public GameObject greenPrefab;
+    public GameObject orangePrefab;
+    public GameObject purplePrefab;
+    public GameObject grayPrefab;
+
 
     private float timer;
 
     void Awake()
     {
-        Debug.Log("Awake wird zuerst aufgerufen");
         duration = 12f;
-
-}
+    }
 
 
     private void Start()
@@ -61,11 +67,13 @@ public class Bomb : MonoBehaviour
         if (colorFieldPrefab != null)
         {
             Vector3 spawnPos = transform.position + Vector3.up * 0.01f; // leicht über dem Boden
+
             GameObject fieldGO = Instantiate(colorFieldPrefab, spawnPos, Quaternion.identity);
             ColorField field = fieldGO.GetComponent<ColorField>();
             if (field != null)
             {
                 field.ApplyColor(bombColor);
+                Debug.Log("Farbe" + bombColor);
                 field.SetLifetime(duration);
 
             }

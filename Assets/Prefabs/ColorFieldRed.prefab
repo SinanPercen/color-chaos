@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 465135be1ff5147b8a2354cde93b58cc, type: 2}
+  - {fileID: 2100000, guid: ad47dc763b37ca04988c3104ad55c859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 3488647917408486762}
   - component: {fileID: 900670850237886700}
   m_Layer: 0
-  m_Name: ColorField
+  m_Name: ColorFieldRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,12 +134,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca458402cc6748c45bbf8bd6ff8431f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorField
-  redMaterial: {fileID: 2100000, guid: ad47dc763b37ca04988c3104ad55c859, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 465135be1ff5147b8a2354cde93b58cc, type: 2}
-  yellowMaterial: {fileID: 0}
-  greenMaterial: {fileID: 2100000, guid: a983dd5252817474d935886cdd0c2cab, type: 2}
-  orangeMaterial: {fileID: 0}
-  purpleMaterial: {fileID: 0}
-  grayMaterial: {fileID: 0}
   currentColor: 1
   lifetime: 2
