@@ -1,39 +1,24 @@
-using System;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     [Header("Bomb Settings")]
     public float radius = 3f;
-    public float duration;
+    public float duration = 12f;     // Standard-Dauer
     public float damage = 20f;
-    public ColorType bombColor = ColorType.Red;
+    public ColorType bombColor;
 
     [Header("Visuals")]
-    public GameObject explosionEffect; // optionales Partikel/Prefab
-    public GameObject colorFieldPrefab; // das ColorField-Prefab, das gefärbt wird
-    public GameObject redPrefab;
-    public GameObject bluePrefab;
-    public GameObject yellowPrefab;
-    public GameObject greenPrefab;
-    public GameObject orangePrefab;
-    public GameObject purplePrefab;
-    public GameObject grayPrefab;
+    public GameObject explosionEffect;   // Optionales Partikel/Prefab
+    public GameObject colorFieldPrefab;  // Das ColorField, das gefärbt wird
 
 
     private float timer;
 
-    void Awake()
-    {
-        duration = 12f;
-    }
-
-
     private void Start()
     {
         timer = duration;
-        // Effekt sofort anwenden
-        ApplyEffect();
+        ApplyEffect(); // Schaden & ColorField einmal anwenden
     }
 
     private void Update()
@@ -45,38 +30,41 @@ public class Bomb : MonoBehaviour
 
     private void ApplyEffect()
     {
-        // Gegner im Radius treffen
+        // 1️⃣ Gegner im Radius treffen
         Collider[] hits = Physics.OverlapSphere(transform.position, radius);
         foreach (var col in hits)
         {
             if (col.TryGetComponent<IDamageable>(out var dmg))
-                dmg.TakeDamage(damage);
-            else if (col.CompareTag("Enemy"))
             {
-                var enemy = col.GetComponent<Enemy>();
-                if (enemy != null)
-                    enemy.TakeDamage(damage);
+                dmg.TakeDamage(damage);
             }
         }
 
-        // Optional: Partikel/Explosion
-        //if (explosionEffect != null)
-         //   Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        // 2️⃣ Optional: Explosionseffekt
+        if (explosionEffect != null)
+        {
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        }
 
-        // ColorField auf dem Boden erzeugen
+        // 3️⃣ ColorField einmal erzeugen
         if (colorFieldPrefab != null)
         {
-            Vector3 spawnPos = transform.position + Vector3.up * 0.01f; // leicht über dem Boden
-
+            Vector3 spawnPos = transform.position + Vector3.up * 0.01f; // leicht über Boden
             GameObject fieldGO = Instantiate(colorFieldPrefab, spawnPos, Quaternion.identity);
+
             ColorField field = fieldGO.GetComponent<ColorField>();
             if (field != null)
             {
-                field.ApplyColor(bombColor);
-                Debug.Log("Farbe" + bombColor);
-                field.SetLifetime(duration);
-
+                field.ApplyColor(bombColor); // Farbe setzen
+                field.SetLifetime(duration);  // Dauer setzen
             }
+
+            Debug.Log($"Bomb erzeugt ColorField mit Farbe: {bombColor}");
         }
+    }
+
+    public void setBombColor(ColorType newColor)
+    {
+        bombColor = newColor;
     }
 }

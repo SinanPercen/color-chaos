@@ -48,7 +48,7 @@ MonoBehaviour:
   radius: 3
   duration: 2
   damage: 20
-  bombColor: 1
+  bombColor: 0
   explosionEffect: {fileID: 0}
   colorFieldPrefab: {fileID: 3416313922462192627, guid: c132844c210b76e4a86b4d22f4db0b3f, type: 3}
 --- !u!135 &2988779626111498203

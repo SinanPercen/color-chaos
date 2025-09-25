@@ -17,16 +17,11 @@ public class ColorField : MonoBehaviour
     public ColorType currentColor = ColorType.Green;
     public float lifetime; // Dauer, wie lange die Fläche sichtbar bleibt
 
-    private void Awake()
-    {
-        Destroy(gameObject, lifetime);
-    }
-
     public void ApplyColor(ColorType newColor)
     {
         currentColor = newColor;
 
-        Renderer renderer = GetComponent<Renderer>();
+        Renderer renderer = GetComponentInChildren<Renderer>();
     if (renderer == null) return;
 
     switch (newColor)
@@ -44,5 +39,6 @@ public class ColorField : MonoBehaviour
     public void SetLifetime(float newLifetime)
     {
         lifetime = newLifetime;
+        Destroy(gameObject, lifetime);
     }
 }

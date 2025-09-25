@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("Player")]
+    public PlayerData playerData;
+
     [Header("Movement")]
     public float moveSpeed = 5f;
     private Rigidbody rb;
@@ -11,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Shooting")]
     public GameObject projectilePrefab;
-    public float fireOffset = 0.5f;          
+    public float fireOffset = 0.5f;
     public ColorType playerColor = ColorType.Blue;
     public float projectileCooldown = 10f; // Cooldown in Sekunden
     private float lastFireTime = -Mathf.Infinity;
@@ -74,32 +78,36 @@ public class PlayerController : MonoBehaviour
         direction.y = 0;
         direction.Normalize();
 
-Vector3 spawnPos = transform.position + direction * 0.5f;
-GameObject beamGO = Instantiate(beamPrefab, spawnPos, Quaternion.identity);
-Beam beam = beamGO.GetComponent<Beam>();
-if (beam != null)
-{
-    beam.Initialize(spawnPos, direction, beamLength, beamDuration, beamDamage, beamHitMask, 0.2f);
-}
+        Vector3 spawnPos = transform.position + direction * 0.5f;
+        GameObject beamGO = Instantiate(beamPrefab, spawnPos, Quaternion.identity);
+        Beam beam = beamGO.GetComponent<Beam>();
+        if (beam != null)
+        {
+            beam.Initialize(spawnPos, direction, beamLength, beamDuration, beamDamage, beamHitMask, 0.2f);
+        }
 
     }
-public void OnBomb(InputAction.CallbackContext context)
-{
-    if (!context.performed) return;
-
-    Vector3 target = GetMouseWorldPosition();
-    Vector3 spawnPos = target + Vector3.up * 0.1f;
-
-    GameObject bombGO = Instantiate(bombPrefab, spawnPos, Quaternion.identity);
-    Bomb bomb = bombGO.GetComponent<Bomb>();
-    if (bomb != null)
+    public void OnBomb(InputAction.CallbackContext context)
     {
-        bomb.bombColor = playerColor;
-        bomb.radius = bombRadius;
-        bomb.duration = bombDuration;
-        bomb.damage = bombDamage;
+        if (!context.performed) return;
+
+        Vector3 target = GetMouseWorldPosition();
+        Vector3 spawnPos = target + Vector3.up * 0.1f;
+
+        GameObject bombGO = Instantiate(bombPrefab, spawnPos, Quaternion.identity);
+        Bomb bomb = bombGO.GetComponent<Bomb>();
+        Debug.Log("PlayerController Farbe = " + bomb.bombColor);
+        Debug.Log("PlayerData Farbe = " + playerData.bombColor);
+        if (bomb != null)
+        {
+            bomb.setBombColor(playerData.bombColor);
+            Debug.Log("PlayerController Farbe = " + bomb.bombColor);
+            Debug.Log("PlayerData Farbe = " + playerData.bombColor);
+            bomb.radius = playerData.radius;
+            bomb.duration = playerData.duration;
+            bomb.damage = playerData.damage;
+        }
     }
-}
 
     #endregion
 
@@ -113,7 +121,7 @@ public void OnBomb(InputAction.CallbackContext context)
             return;
         }
 
-    lastFireTime = Time.time; // Zeitpunkt speichern
+        lastFireTime = Time.time; // Zeitpunkt speichern
         Vector3 target = GetMouseWorldPosition();
         Vector3 direction = (target - transform.position).normalized;
 

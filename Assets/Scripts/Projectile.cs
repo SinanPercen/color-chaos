@@ -16,7 +16,8 @@ public class Projectile : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody>();
 
         rb.useGravity = false;
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        //rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
 
     // Initialisierung direkt nach Instanziierung
@@ -27,15 +28,25 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifetime); // Selbstzerstörung nach 'lifetime' Sekunden
     }
 
-        private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent<IDamageable>(out var dmg))
+        //
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Schaden anwenden, falls Gegner
+        if (other.CompareTag("Enemy") && other.TryGetComponent<IDamageable>(out var dmg))
         {
             dmg.TakeDamage(damage);
         }
 
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Wall"))
+        // Projectile zerstören, wenn Gegner oder Wand
+        if (other.CompareTag("Enemy") || other.CompareTag("Wall"))
+        {
             Destroy(gameObject);
-
+        }
     }
+
 }
